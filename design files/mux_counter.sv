@@ -1,10 +1,7 @@
 
-// 
-
-
 module mx_counter(
     input logic [31:0] adder,branch,
-    input logic s,  //control unit signal ( decider)
+    input logic s,  //control  signal ( decider)
     output logic [31:0] c_inpt
 );
 
@@ -13,4 +10,5 @@ module mx_counter(
 endmodule
 
 
-// s=0 --> 
+// s=0 --> next address
+// s=1 --> branch instruction
