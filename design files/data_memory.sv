@@ -3,8 +3,8 @@ module data_memory(
     input logic WE, //write enable        
     
     input [31:0] WD, //write data
-    input [31:0] A, // from arithmatic and logic unit
-    output [31:0] RD, // read data
+    input [31:0] A, // from arithmatic and logic unit //??? how?
+    output [31:0] RD // read data
 
 
     // A -> wanted memory address
