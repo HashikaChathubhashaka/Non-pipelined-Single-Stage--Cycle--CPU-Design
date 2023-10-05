@@ -8,3 +8,6 @@ module pc_adder( input wire clk,
 
     end
 endmodule
+
+
+//this is doing default programming counter adder
