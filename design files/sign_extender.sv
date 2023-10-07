@@ -1,4 +1,4 @@
-module sginextender(
+module sign_extender(
     input logic [15:0] input_data, //  (16 bits)
     output logic [31:0] output_data // (32 bits)
 );
@@ -12,3 +12,4 @@ module sginextender(
     end
 
 endmodule
+

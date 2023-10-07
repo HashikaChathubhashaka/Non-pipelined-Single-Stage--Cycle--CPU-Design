@@ -1,6 +1,6 @@
 module pc_adder( input wire clk,
-                input logic[31:0] current_address,
-                output logic[31:0] next_address);
+                input logic[15:0] current_address,
+                output logic[15:0] next_address);
 
     always_ff @(posedge clk) begin
 
@@ -11,7 +11,4 @@ endmodule
 
 
 //this is doing default programming counter adder
-
-
-
 

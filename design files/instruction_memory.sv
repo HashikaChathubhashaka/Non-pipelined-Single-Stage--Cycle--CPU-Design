@@ -1,20 +1,23 @@
 module instruction_memory(
-    input logic  [15:0] A; //address -> 32 bits   --> so there can be 2^32 differnt adresses
-    output logic [31:0] RD; 
+    input logic  [15:0] A; //address -> 16 bits   --> so there can be 2^16 differnt adresses
+    output logic [31:0] RD; // 32 bit processor mean in one instructor there are 32 bits
 );
 
     //making the instruction memory
-    reg [7:0] mem [1023:0]; // making array of 1024 , which each element has byte value.
-    assign RD = mem[A] + mem[A+1] + mem[A+2] + mem[A+3] ;
+    reg [31:0] mem [1023:0]; // making array of 1024 
+    assign RD = mem[A[15:2]]  ; //since we adding 4 to program counter , remove the last two bits
 
 //instruction memory, bytable.
 
 
     initial begin
+
+    //instruction set
     mem[0] = 32'h00000020;
     mem[1] = 32'h00000021;
     mem[2] = 32'h00000031;
     mem[3] = 32'h00000005;
+
 
 
     end
