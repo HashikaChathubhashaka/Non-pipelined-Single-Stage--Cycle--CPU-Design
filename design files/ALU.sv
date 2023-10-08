@@ -16,6 +16,7 @@ module ALU(
             3'b101: ALU_result = a << b; // sll (Shift Left Logical)
             3'b110: ALU_result = a >> b; // srl (Shift Right Logical)
             3'b111: ALU_result = a >>> b; // sra (Shift Right Arithmetic)
+            
             default: ALU_result = 32'b0; // Default to 0 for undefined control values
         endcase
     end
@@ -24,3 +25,4 @@ module ALU(
     assign zero_flag = (ALU_result == 32'b0) ? 1'b1 : 1'b0;  //if result is 0, output of zero_flag is 1
 
 endmodule
+

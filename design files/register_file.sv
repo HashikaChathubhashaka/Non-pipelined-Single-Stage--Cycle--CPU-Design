@@ -3,7 +3,9 @@ module register_fle(
 
     input logic A1[4:0],
     input logic A2[4:0], // represent every number in 32 array  -> 5 bit enough
+    input logic A3[4:0],
     input logic WD3[31:0],
+
 
     output logic RD1[31:0],
     output logic RD2[31:0]

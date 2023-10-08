@@ -1,21 +1,12 @@
-module p_counter (
-
-    input wire clk,
-    input wire rst,
-    input logic [15:0] pc_next,
-    output logic [15:0] pc
-);
-    always_ff @(posedge clk or posedge rst)
-    begin
-        if(rst) begin
-
-            pc <= '0; 
-        end
-
-        else
-        begin
-            pc <= pc_next;
-        end
-    end
+module p_counter (rst, clk,PC_Next,PC);
+    input rst, clk;
+    input [15:0] PC_Next;
+    output reg [15:0] PC;
     
+
+    always_ff @(posedge clk or posedge rst) 
+        if (rst) PC <= 32'h0;
+        else    PC = PC_Next;
+
 endmodule
+

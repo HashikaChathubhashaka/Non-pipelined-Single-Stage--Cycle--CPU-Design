@@ -1,32 +1,34 @@
 module tb_pc_adder;
 
-  reg clk = 0;
-  logic [15:0] current_address;
-  logic [15:0] next_address;
+    // Inputs
+    reg [15:0] current_address;
 
-  // Instantiate the pc_adder module
-  pc_adder uut (
-    .clk(clk),
-    .current_address(current_address),
-    .next_address(next_address)
-  );
+    // Outputs
+    wire [15:0] next_address;
 
-  // Clock generation
-  always #5 clk = ~clk;  // Toggle the clock every 5 time units
+    // Instantiate the module under test
+    pc_adder uut (
+        .current_address(current_address),
+        .next_address(next_address)
+    );
 
-  // Testbench stimulus
-  initial begin
-    $monitor("Time=%0t Current_Address=%h Next_Address=%h", $time, current_address, next_address);
-    
-    // Initialize inputs
-    current_address = 16'h0000; // You can set the initial address to any value
-    
-    // Apply a few clock cycles
-    #10; // Wait for 10 time units
+    // Stimulus generation
+    initial begin
+        // Initialize inputs
+        current_address = 16'h0000; // Start with address 0
 
-    // You can add more test cases here by changing current_address values and waiting for more cycles
+        // Apply some test vectors
+        #10 current_address = 16'h0004; // Add 4 to address
+        #10 current_address = 16'h0008; // Add 4 again
+        #10 current_address = 16'h000C; // Add 4 again
 
-    $finish; // End simulation
-  end
+        // Finish simulation after a while
+        #100 $finish;
+    end
+
+    // Display results
+    always @(next_address) begin
+        $display("current_address = %h, next_address = %h", current_address, next_address);
+    end
 
 endmodule

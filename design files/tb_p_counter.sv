@@ -1,16 +1,18 @@
-module tb_top_module;
+module tb_p_counter;
 
     // Inputs
     reg rst;
     reg clk;
+    reg [15:0] PC_Next;
 
     // Outputs
     wire [15:0] PC;
 
     // Instantiate the module under test
-    top_module uut (
+    p_counter uut (
         .rst(rst),
         .clk(clk),
+        .PC_Next(PC_Next),
         .PC(PC)
     );
 
@@ -24,16 +26,15 @@ module tb_top_module;
         // Initialize inputs
         rst = 1; // Apply reset initially
         clk = 0;
+        PC_Next = 16'h0000;
 
         // Release reset after some time
         #10 rst = 0;
 
-        // Simulate automatic PC increment
-        // PC should increment by 4 on each clock cycle
-        #10; // PC should be 0x0004
-        #10; // PC should be 0x0008
-        #10; // PC should be 0x000C
-        #10; // PC should be 0x0010
+        // Simulate PC updates
+        #10 PC_Next = 16'h0004; // PC should increment by 4
+        #10 PC_Next = 16'h0008; // PC should increment by 4
+        #10 PC_Next = 16'h000C; // PC should increment by 4
 
         // Finish simulation after a while
         #100 $finish;
