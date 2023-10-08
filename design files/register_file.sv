@@ -1,36 +1,40 @@
-module register_fle(
-    input wire clk,
 
-    input logic A1[4:0],
-    input logic A2[4:0], // represent every number in 32 array  -> 5 bit enough
-    input logic A3[4:0],
-    input logic WD3[31:0],
+module register_file(
+    input wire clk, 
+    input wire WE3, // o or 1 -> write enable
 
+    input logic [4:0] A1, A2, A3,  //5 bits values come from the instruction memory , addresses of memor locations
+	 //A3 -> data writing address
 
-    output logic RD1[31:0],
-    output logic RD2[31:0]
+    input logic [31:0] WD3, // write data
+    output logic [31:0] RD1, RD2 
 );
 
-    reg[31:0] Register [31:0];
-    // size 32 array , each array value has 32 bit number assign
+    reg [31:0] Register [31:0]; //making size of 32 array , maximum size for 5 bit address
 
-    always_ff(posedge clk)
-    begin
-        if(WD3) begin
+	reg register [31:0];
+
+
+    always @(posedge clk) begin
+        if (WE3)
             Register[A3] <= WD3;
-        end
+    end
 
-    //geting values in register
     assign RD1 = Register[A1];
     assign RD2 = Register[A2];
 
-    end
+    initial begin // register memory data
 
-    intial begin   
-        Register[5] = 32'h00000005;
-
+		Register[0] = 32'h00000000;
+		Register[1] = 32'h00000001;
+		Register[2] = 32'h00000002;
+		Register[3] = 32'h00000003;
+		Register[4] = 32'h00000004;
+		Register[5] = 32'h00000005;
+		Register[6] = 32'h00000006;
+		Register[7] = 32'h00000007;
+		Register[8] = 32'h00000008;
+		Register[9] = 32'h00000009;
     end
 
 endmodule
-
-
