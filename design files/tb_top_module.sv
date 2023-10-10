@@ -1,57 +1,54 @@
 module tb_top_module;
 
-    // Inputs
     reg rst;
     reg clk;
-
-    // Outputs
     wire [15:0] PC;
     wire [31:0] Instruction;
+    wire [31:0] RD1;
+    wire [31:0] RD2;
+    wire [31:0] ALU_result; // Wire for ALU output
+    wire zero_flag; // Wire for zero flag
 
-    // Instantiate the module under test
+    // Instantiate the top module
     top_module uut (
         .rst(rst),
         .clk(clk),
         .PC(PC),
-        .Instruction(Instruction)
+        .Instruction(Instruction),
+        .RD1(RD1),
+        .RD2(RD2),
+        .ALU_control(4'b0011), // Set ALU control to addition (4'b0011)
+        .zero_flag(zero_flag),
+        .ALU_result(ALU_result)
     );
 
     // Clock generation
     always begin
-        #5 clk = ~clk; // Toggle the clock every 5 time units
+        #5 clk = ~clk;
     end
 
-    // Stimulus generation
+    // Reset generation
     initial begin
-        // Initialize inputs
-        rst = 1; // Apply reset initially
-        clk = 0;
+        rst = 1'b1;
+        clk = 1'b0;
 
-        // Release reset after some time
-        #5 rst = 0;
-
-        // Simulate PC auto-increment
-        // PC should increment by 4 on each clock cycle
-        #10; // PC should be 0x0004
-        #10; // PC should be 0x0008
-        #10; // PC should be 0x000C
-        #10; // PC should be 0x0010
-
-        // Simulate instruction fetching
-        // The instruction memory is initialized in your module
-        // You can read the Instruction output here
-        #10; // Instruction 0x00000020
-        #10; // Instruction 0x00000021
-        #10; // Instruction 0x00000031
-        #10; // Instruction 0x00000005
-
-        // Finish simulation after a while
-        #100 $finish;
+        // Apply reset
+        #10 rst = 1'b0;
     end
 
-    // Display results
-    always @(posedge clk) begin
-        $display("PC = %h, Instruction = %h", PC, Instruction);
+    // Simulate instructions here, if needed
+    // (You can apply inputs to rst and clk, and monitor PC, Instruction, RD1, RD2)
+
+    // Display RD1, RD2, ALU output, and zero flag
+    always @(RD1, RD2, ALU_result, zero_flag) begin
+        $display("Instruction=%h RD1=%h RD2=%h ALU_result=%h Zero_Flag=%h", Instruction, RD1, RD2, ALU_result, zero_flag);
+    end
+
+    // Add additional test cases or stimulus as needed
+
+    // Terminate the simulation
+    initial begin
+        #100 $finish;
     end
 
 endmodule

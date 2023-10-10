@@ -1,21 +1,21 @@
 module ALU(
     input logic [31:0] a,
     input logic [31:0] b,
-    input logic [2:0] ALU_control,
+    input logic [3:0] ALU_control,
     output logic zero_flag,
     output logic [31:0] ALU_result
 );
 
     always_comb begin
         case (ALU_control)
-            3'b000: ALU_result = a & b; // and
-            3'b001: ALU_result = a | b; // or
-            3'b010: ALU_result = a ^ b; // xor
-            3'b011: ALU_result = a + b; // add
-            3'b100: ALU_result = a - b; // sub
-            3'b101: ALU_result = a << b; // sll (Shift Left Logical)
-            3'b110: ALU_result = a >> b; // srl (Shift Right Logical)
-            3'b111: ALU_result = a >>> b; // sra (Shift Right Arithmetic)
+            4'b0000: ALU_result = a & b; // and
+            4'b0001: ALU_result = a | b; // or
+            4'b0010: ALU_result = a ^ b; // xor
+            4'b0011: ALU_result = a + b; // add
+            4'b0100: ALU_result = a - b; // sub
+            4'b0101: ALU_result = a << b; // sll (Shift Left Logical)
+            4'b0110: ALU_result = a >> b; // srl (Shift Right Logical)
+            4'b0111: ALU_result = a >>> b; // sra (Shift Right Arithmetic)
             
             default: ALU_result = 32'b0; // Default to 0 for undefined control values
         endcase
