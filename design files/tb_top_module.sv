@@ -6,8 +6,11 @@ module tb_top_module;
     wire [31:0] Instruction;
     wire [31:0] RD1;
     wire [31:0] RD2;
-    wire [31:0] ALU_result; // Wire for ALU output
-    wire zero_flag; // Wire for zero flag
+    wire [3:0] ALU_control;
+    wire zero_flag;
+    wire [31:0] ALU_result;
+    wire RegWrite;
+    wire [3:0] main_ALU_control;
 
     // Instantiate the top module
     top_module uut (
@@ -17,9 +20,10 @@ module tb_top_module;
         .Instruction(Instruction),
         .RD1(RD1),
         .RD2(RD2),
-        .ALU_control(4'b0011), // Set ALU control to addition (4'b0011)
+        .ALU_control(ALU_control),
         .zero_flag(zero_flag),
-        .ALU_result(ALU_result)
+        .ALU_result(ALU_result),
+        .RegWrite(RegWrite)
     );
 
     // Clock generation
@@ -37,11 +41,11 @@ module tb_top_module;
     end
 
     // Simulate instructions here, if needed
-    // (You can apply inputs to rst and clk, and monitor PC, Instruction, RD1, RD2)
+    // (You can apply inputs to rst and clk, and monitor PC, Instruction, RD1, RD2, ALU_control, zero_flag, ALU_result, RegWrite, and main_ALU_control)
 
-    // Display RD1, RD2, ALU output, and zero flag
-    always @(RD1, RD2, ALU_result, zero_flag) begin
-        $display("Instruction=%h RD1=%h RD2=%h ALU_result=%h Zero_Flag=%h", Instruction, RD1, RD2, ALU_result, zero_flag);
+    // Display PC, Instruction, RD1, RD2, ALU_result, ALU_control, RegWrite, and main_ALU_control
+    always @(PC, Instruction, RD1, RD2, ALU_result, ALU_control, RegWrite, main_ALU_control) begin
+         #1 $display("PC=%h Instruction=%h RD1=%h RD2=%h ALU_result=%h ALU_control=%h RegWrite=%h main_ALU_control=%h", PC, Instruction, RD1, RD2, ALU_result, ALU_control, RegWrite, main_ALU_control);
     end
 
     // Add additional test cases or stimulus as needed

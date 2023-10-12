@@ -1,7 +1,8 @@
 module ALU(
-    input logic [31:0] a,
-    input logic [31:0] b,
-    input logic [3:0] ALU_control,
+    input logic [31:0] a, // mem register
+    input logic [31:0] b, // mem register
+    input logic [3:0] ALU_control, // ALU_decoder
+
     output logic zero_flag,
     output logic [31:0] ALU_result
 );

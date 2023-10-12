@@ -1,10 +1,11 @@
-module Main_Decoder(
+module main_decoder(
     input [6:0] Op, //op code
     output RegWrite, // registor wtire enable or not
 
     output [1:0] ALUOp // output for ALU decoder
 );
 
+                                            //R type
     assign RegWrite = (Op == 7'b0000011 || Op == 7'b0110011) ? 1'b1 : 1'b0;  
     // !Regwrite need in R type 
 

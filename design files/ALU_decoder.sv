@@ -7,7 +7,7 @@ module ALU_decoder(
     output [3:0] ALU_control //output to ALU
 );
 
-    assign ALU_control = (ALUOp == 2'b00) ?  : 4'b1000; // not for R type
+    assign ALU_control = (ALUOp == 2'b00) ?  : 4'b1000; // not for R type  // in ALU go for default
                         ((ALUOp == 2'b10) && (funct3 == 3'b111)) ? 4'b0000 :  // and 
                         ((ALUOp == 2'b10) && (funct3 == 3'b110)) ? 4'b0001:  // or 
                         ((ALUOp == 2'b10) && (funct3 == 3'b100)) ? 4'b0010:  // xor 
@@ -16,5 +16,5 @@ module ALU_decoder(
                         ((ALUOp == 2'b10) && (funct3 == 3'b001)) ? 4'b0101:  // sll 
                         ((ALUOp == 2'b10) && (funct3 == 3'b101) && ({op[5], funct7[5]} == 2'b10)) ? 4'b0110 : //srl                       
                         ((ALUOp == 2'b10) && (funct3 == 3'b101) && ({op[5], funct7[5]} == 2'b11)) ? 4'b0111 :  //sra
-                                                                4'b1111;
+                                                                4'b1111;  // in ALU go for defult
 endmodule
