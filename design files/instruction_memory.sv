@@ -13,12 +13,13 @@ module instruction_memory(
     initial begin
 
     //instruction set
-	 
-	 mem[0]  = 32'h00000020; // Instruction 0
-    mem[1]  = 32'h00000021; // Instruction 1
-    mem[2]  = 32'h00000031; // Instruction 2
-    mem[3]  = 32'h00000005; // Instruction 3
-    mem[4]  = 32'h00000100; // Instruction 4
+
+      mem[0] = 32'b0000000_00001_00010_000_00000_0110011; // R-type Instruction 0 (add)
+      mem[1] = 32'b0000000_00011_00100_000_00000_0110011; // R-type Instruction 1 (add)
+      mem[2] = 32'b0000000_00101_00110_000_00000_0110011; // R-type Instruction 2 (add)
+      mem[3] = 32'b0000000_00111_01000_000_00000_0110011; // R-type Instruction 3 (add)
+      mem[4] = 32'b0000000_01001_01010_000_00000_0110011; // R-type Instruction 4 (add)
+
     mem[5]  = 32'h00000200; // Instruction 5
     mem[6]  = 32'h00000300; // Instruction 6
     mem[7]  = 32'h00000400; // Instruction 7
@@ -31,11 +32,35 @@ module instruction_memory(
     mem[14] = 32'h00000B00; // Instruction 14
     mem[15] = 32'h00000C00; // Instruction 15
 
-
-
     end
 
 
 endmodule
 
 
+/* 
+
+!opcodes definitions
+
+*  0110011 - R type instruction
+
+*  0010011 - I type instruction
+
+   */
+
+/*
+? R type 
+
+* add - 0000000   000
+* sub - 0100000   000
+* sll - 0000000   001
+* slt - 0000000   010
+* sltu- 0000000   011
+* xor - 0000000   100
+* srl - 0000000   101
+* sra - 0100000   101
+* or  - 0000000   110
+* and - 0000000   111
+
+
+*/

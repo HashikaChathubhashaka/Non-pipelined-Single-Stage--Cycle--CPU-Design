@@ -17,6 +17,8 @@ module ALU(
             4'b0101: ALU_result = a << b; // sll (Shift Left Logical)
             4'b0110: ALU_result = a >> b; // srl (Shift Right Logical)
             4'b0111: ALU_result = a >>> b; // sra (Shift Right Arithmetic)
+            4'b1000: ALU_result = a < b; // sltu (set if less than register,unsigned)
+            4'b1001: ALU_result = $signed(a) < $signed(b); // slt (set if less than register)
             
             default: ALU_result = 32'b0; // Default to 0 for undefined control values
         endcase
