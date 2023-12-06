@@ -1,0 +1,42 @@
+module tb_mux_alu;
+
+    reg [31:0] a;
+    reg [31:0] b;
+    reg s;
+    wire [31:0] c;
+
+    // Instantiate the mux_alu module
+    mux_alu uut (
+        .a(a),
+        .b(b),
+        .s(s),
+        .c(c)
+    );
+
+    // Clock generation
+    reg clk = 0;
+    always begin
+        #5 clk = ~clk;
+    end
+
+    // Apply test cases
+    initial begin
+        // Test Case 1: Select 'a' (s = 1)
+        a = 32'h12345678;
+        b = 32'h87654321;
+        s = 1'b1;
+        #10 if (c !== a) $display("Test Case 1 Failed");
+
+        // Test Case 2: Select 'b' (s = 0)
+        a = 32'h12345678;
+        b = 32'h87654321;
+        s = 1'b0;
+        #10 if (c !== b) $display("Test Case 2 Failed");
+
+        // Add more test cases as needed
+
+        // Terminate the simulation
+        $finish;
+    end
+
+endmodule

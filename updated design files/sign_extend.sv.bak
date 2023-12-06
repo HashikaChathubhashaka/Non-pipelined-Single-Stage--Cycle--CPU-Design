@@ -1,0 +1,10 @@
+module sign_extend (
+    input wire [11:0] imm_in, // Original 12-bit immediate
+    output wire [31:0] imm_out // Sign-extended 32-bit immediate
+);
+
+    wire msb = imm_in[11]; // Extract the MSB (sign bit)
+
+    assign imm_out = (msb == 1) ? {{20{1'b1}}, imm_in} : imm_in; // Sign extension
+
+endmodule

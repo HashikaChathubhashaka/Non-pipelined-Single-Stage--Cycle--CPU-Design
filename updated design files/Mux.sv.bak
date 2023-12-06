@@ -1,0 +1,14 @@
+module Mux (
+    input logic [31:0] a, b,
+    input logic s,
+    output logic [31:0] c
+);
+
+    always_ff @(posedge s or posedge a or posedge b) begin
+        if (s)
+            c <= b;
+        else
+            c <= a;
+    end
+
+endmodule

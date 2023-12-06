@@ -1,0 +1,58 @@
+module tb_register_file();
+
+    reg clk;
+    reg WE3;
+    reg [4:0] A1, A2, A3;
+    reg [31:0] WD3;
+    wire [31:0] RD1, RD2;
+
+    // Instantiate the register_file module
+    register_file rf(
+        .clk(clk),
+        .WE3(WE3),
+        .A1(A1),
+        .A2(A2),
+        .A3(A3),
+        .WD3(WD3),
+        .RD1(RD1),
+        .RD2(RD2)
+    );
+
+    // Clock generation
+    always begin
+        #5 clk = ~clk;
+    end
+
+    // Test case
+    initial begin
+        clk = 0;
+        WE3 = 0;
+        A1 = 2;
+        A2 = 4;
+        A3 = 1;
+        WD3 = 32'hABCDEF01;
+
+        // Apply write operation
+        WE3 = 1;
+        #10 WE3 = 0;
+
+        // Wait for a few clock cycles
+        #20;
+
+        // Check the read values
+        $display("RD1 = %h, RD2 = %h", RD1, RD2);
+
+        // Finish the simulation
+        $finish;
+    end
+
+endmodule
+
+// Create an instance of the testbench module
+initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(0, testbench);
+    $display("Starting simulation...");
+    #100; // Run the simulation for 100 time units
+    $finish;
+end

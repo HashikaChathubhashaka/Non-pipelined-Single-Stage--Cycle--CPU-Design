@@ -1,0 +1,27 @@
+module top_decoder_module(
+    input [6:0] Op, //op code
+    input [2:0] funct3, // instruction
+    input [6:0] funct7, // instruction
+    output RegWrite, // register write enable or not
+    output [3:0] ALU_control // output for ALU
+);
+
+    wire [1:0] ALUOp; // Intermediate signal to connect main_decoder and ALU_decoder
+
+    // Instantiate the main_decoder module
+    main_decoder md(
+        .Op(Op),
+        .RegWrite(RegWrite),
+        .ALUOp(ALUOp)
+    );
+
+    // Instantiate the ALU_decoder module
+    ALU_decoder ad(
+        .ALUOp(ALUOp),
+        .funct3(funct3), // Pass funct3 directly
+        .funct7(funct7), // Pass funct7 directly
+        .op(Op),
+        .ALU_control(ALU_control)
+    );
+
+endmodule

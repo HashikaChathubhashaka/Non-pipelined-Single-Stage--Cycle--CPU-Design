@@ -1,0 +1,30 @@
+`include "p_counter.sv"
+`include "pc_adder.sv"
+
+module top_module (
+    input wire clk,
+    input wire rst,
+    output logic [15:0] pc
+);
+
+    logic [15:0] current_address;
+    logic [15:0] next_address;
+
+    // Instantiate the PC Adder module
+    pc_adder pc_adder_inst (
+        .clk(clk),
+        .current_address(current_address),
+        .next_address(next_address)
+    );
+
+    // Instantiate the Program Counter module
+    p_counter p_counter_inst (
+        .clk(clk),
+        .rst(rst),
+        .pc_next(next_address),  // Connect next_address from pc_adder to pc_next in p_counter
+        .pc(pc)
+    );
+
+    // You can connect current_address to an external source or use a separate module for it
+
+endmodule

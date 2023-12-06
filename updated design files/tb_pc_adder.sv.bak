@@ -1,0 +1,39 @@
+module tb_pc_adder();
+
+    reg clk;
+    reg [15:0] current_address;
+    reg [15:0] next_address;
+
+    // Instantiate the PC Adder module
+    pc_adder uut (
+        .clk(clk),
+        .current_address(current_address),
+        .next_address(next_address)
+    );
+
+    // Clock generation
+    always begin
+        #5 clk = ~clk;
+    end
+
+    // Stimulus generation
+    initial begin
+        clk = 0;
+        current_address = 0;
+
+        // Wait for a few clock cycles before checking the result
+        #20;
+
+        // Perform some address increments
+        for (int i = 0; i < 5; i = i + 1) begin
+            #5;
+            $display("Cycle %0d: current_address = %0d, next_address = %0d", i, current_address, next_address);
+            current_address = next_address;
+
+        end
+
+        // End simulation
+        $finish;
+    end
+
+endmodule
